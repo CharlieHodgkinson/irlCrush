@@ -14,6 +14,7 @@ import { LiveSession } from "./host/LiveSession";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Layout } from "./components/Layout";
+import { Authoriser } from "./host/Authoriser";
 
 const theme = createTheme({
   palette: {
@@ -52,11 +53,14 @@ const App = () => {
             <Route path="crushes" element={<ViewCrushes />} />
           </Route>
         </Route>
-        <Route path="host" element={<Authenticator />}>
-          <Route index element={<CrushSessions />} />
-          <Route path="new" element={<NewSession />} />
-          <Route path="session/:sessionId" element={<ViewSession />} />
-          <Route path="live/:sessionId" element={<LiveSession />} />
+
+        <Route element={<Layout />}>
+          <Route path="host" element={<Authoriser />}>
+            <Route index element={<CrushSessions />} />
+            <Route path="new" element={<NewSession />} />
+            <Route path="session/:sessionId" element={<ViewSession />} />
+            <Route path="live/:sessionId" element={<LiveSession />} />
+          </Route>
         </Route>
       </Routes>
     </ThemeProvider>
