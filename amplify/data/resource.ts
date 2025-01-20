@@ -3,9 +3,10 @@ import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 const schema = a.schema({
   crushSession: a
     .model({
-      name: a.string(),
-      sessionId: a.string(),
-      sessionActive: a.boolean(),
+      name: a.string().required(),
+      sessionId: a.string().required(),
+      sessionActive: a.boolean().default(false).required(),
+      crushes: a.string().array().default([]).required(),
     })
     .authorization((allow) => [allow.owner()]),
 });
