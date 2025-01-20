@@ -13,6 +13,7 @@ import { ViewSession } from "./host/ViewSession";
 import { LiveSession } from "./host/LiveSession";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Layout } from "./components/Layout";
 
 const theme = createTheme({
   palette: {
@@ -41,11 +42,15 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Routes>
-        <Route index element={<Landing />} />
+        <Route element={<Layout />}>
+          <Route index element={<Landing />} />
+        </Route>
 
-        <Route path="join" element={<Join />}>
-          <Route index element={<AddCrush />} />
-          <Route path="crushes" element={<ViewCrushes />} />
+        <Route element={<Layout />}>
+          <Route path="join" element={<Join />}>
+            <Route index element={<AddCrush />} />
+            <Route path="crushes" element={<ViewCrushes />} />
+          </Route>
         </Route>
         <Route path="host" element={<Authenticator />}>
           <Route index element={<CrushSessions />} />

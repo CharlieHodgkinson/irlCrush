@@ -1,62 +1,28 @@
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button,
-  Container,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Typography, Button, CardContent, Card, Stack } from "@mui/material";
 import React from "react";
+import { Link as RouterLink } from "react-router";
 
 export const Landing = () => {
   return (
-    <>
-      <style>
-        {`
-            html,
-            body {
-              height: 100%;
-              width: 100%;
-            }
-            html {
-              background-color: #FFEFEF;
-            }
-            `}
-      </style>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              IRL_Crush
-            </Typography>
-            <IconButton
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-      </Box>
-      <main style={{ display: "contents" }}>
-        <Box
-          sx={{
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <Typography variant="h5" component="h1" color={"textPrimary"}>
-            Welcome to IRL_Crush!
+    <Stack direction={"column"} spacing={2} alignItems={"center"}>
+      <Typography variant="h5" component="h1" color={"textPrimary"}>
+        Welcome to IRL_Crush!
+      </Typography>
+      <Card>
+        <CardContent>
+          <Typography>
+            you can join a crush session or host your own!
           </Typography>
-        </Box>
-      </main>
-    </>
+        </CardContent>
+      </Card>
+      <Stack spacing={2} direction="row">
+        <Button variant="contained" component={RouterLink} to="join">
+          JOIN
+        </Button>
+        <Button variant="contained" component={RouterLink} to="host">
+          HOST
+        </Button>
+      </Stack>
+    </Stack>
   );
 };
