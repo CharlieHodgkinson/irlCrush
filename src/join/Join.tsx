@@ -9,6 +9,7 @@ export const Join = () => {
   const [activeSession, setActiveSession] = useSessionState<{
     isSessionActive?: "true" | "false";
     joinCode?: string;
+    id?: string;
   }>("active-session", {});
   const { control, handleSubmit, setError } = useForm({
     defaultValues: {
@@ -20,7 +21,9 @@ export const Join = () => {
     return <Outlet />;
   }
 
-  const validateJoinCode = async (joinCode: string) => {
+  const validateJoinCode = async (
+    joinCode: string
+  ): Promise<{ error?: string; id?: string }> => {
     try {
       const { data: items, errors } = await client.models.CrushSession.list({
         filter: {
@@ -31,18 +34,18 @@ export const Join = () => {
       console.log("errors", errors);
       if (errors) {
         console.error(errors);
-        return "sorry there was an error";
+        return { error: "sorry there was an error" };
       }
       if (items.length === 0) {
-        return "join code not found";
+        return { error: "join code not found" };
       }
       if (items[0].sessionActive !== true) {
-        return "this session has ended";
+        return { error: "this session has ended" };
       }
-      return null;
+      return { id: items[0].id };
     } catch (e) {
       console.error(e);
-      return "sorry there was an error";
+      return { error: "sorry there was an error" };
     }
   };
 
@@ -53,7 +56,8 @@ export const Join = () => {
       </Typography>
       <form
         onSubmit={handleSubmit(async (data) => {
-          const error = await validateJoinCode(data.joinCode);
+          const { id, error } = await validateJoinCode(data.joinCode);
+          console.log("id of joined session", id);
           if (error) {
             setError("joinCode", {
               type: "manual",
@@ -63,6 +67,7 @@ export const Join = () => {
             setActiveSession({
               isSessionActive: "true",
               joinCode: data.joinCode,
+              id: id,
             });
           }
         })}

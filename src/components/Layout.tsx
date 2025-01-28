@@ -44,9 +44,10 @@ export const Layout = () => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            justifyContent: "center",
-            paddingLeft: "10px",
-            paddingRight: "10px",
+            // justifyContent: "center",
+            // paddingLeft: "10px",
+            // paddingRight: "10px",
+            padding: "15px",
           }}
         >
           <Outlet />

@@ -34,7 +34,7 @@ export const NewSession = () => {
         return;
       }
 
-      if (data) navigate(`session/${data.id}`);
+      if (data) navigate(`/host/session/${data.id}`);
     } catch (e) {
       setError("root", {
         type: "manual",
